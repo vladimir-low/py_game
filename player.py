@@ -109,29 +109,17 @@ class Player(pygame.sprite.Sprite):
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
             if pygame.sprite.collide_rect(self, p):  # If a hero overlaps with block
-                if self.xvel > 0:  # If move right
-                    print "Move right:"
-                    print xvel, yvel
-                    print self.rect.x, self.rect.y
+                if xvel > 0:  # If move right
                     self.rect.right = p.rect.left  # Stop movement
 
-                if self.xvel < 0:
-                    print "Move left:"
-                    print xvel, yvel
-                    print self.rect.x, self.rect.y
+                if xvel < 0:
                     self.rect.left = p.rect.right
 
-                if self.yvel > 0:  # if move down
-                    print "Move down:"
-                    print xvel, yvel
-                    print self.rect.x, self.rect.y
+                if yvel > 0:  # if move down
                     self.rect.bottom = p.rect.top
                     self.onGround = True  # Stand on the ground
                     self.yvel = 0  # Stop gravitation
 
-                if self.yvel < 0:
-                    print "Move up:"
-                    print xvel, yvel
-                    print self.rect.x, self.rect.y
+                if yvel < 0:
                     self.rect.top = p.rect.bottom
                     self.yvel = 0
