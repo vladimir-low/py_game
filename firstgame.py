@@ -13,38 +13,27 @@ DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
 BG_COLOR = "#004400"
 
 LEVEL = [
-        '-------------------------------------',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '- ---                               -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '-       -------                     -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '-                      --           -',
-        '-   -                               -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '-         ----                      -',
-        '-                                   -',
-        '-                                   -',
-        '-                 -            -    -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '-   -----                 ----      -',
-        '-                                   -',
-        '-                                   -',
-        '-                                   -',
-        '--------------------------------------']
+        '==============================================================================================',
+        '=                                                                                            =',
+        '=                                                                                            =',
+        '=                                                                                            =',
+        '=   -                                                                                        =',
+        '=                                                                                            =',
+        '=                                                                                            =',
+        '=                                                                                            =',
+        '=          -----                               -     ---                                     =',
+        '=                                              -                                             =',
+        '=                                              -                                             =',
+        '=                                              -                                             =',
+        '=                                              -                                             =',
+        '=                                              -                                             =',
+        '=                                              -                                             =',
+        '=                                              -                                             =',
+        '=                    -      ----               -                     ----          ----      =',
+        '=                                              -                                             =',
+        '=                                              -                                             =',
+        '=                                         IIII -                                             =',
+        '==============================================================================================']
 
 
 class Camera():
@@ -95,10 +84,18 @@ def main():
     x = y = 0  # coordinates
     for row in LEVEL:
         for col in row:
-            if col == '-':
+            if col == '=':
+                br = Border(x, y)
+                entities.add(br)
+                platforms.append(br)
+            elif col == '-':
                 pf = Platform(x, y)
                 entities.add(pf)
                 platforms.append(pf)
+            elif col == 'I':
+                sp = Spikes(x, y)
+                entities.add(sp)
+                platforms.append(sp)
             x += PLATFORM_WIDTH  # Sets width of the blocks
         y += PLATFORM_HEIGHT  # Sets height
         x = 0  # Each line from the beginning
@@ -132,7 +129,7 @@ def main():
                 up = False
 
         # Draws background (left top coordinates)
-        screen.blit(bg, (0, 0))
+        screen.blit(pygame.image.load('img/sunshine-900x600.jpg'), (0, 0))
 
         # Center camera according hero position
         camera.update(hero)

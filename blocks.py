@@ -6,13 +6,24 @@ from pygame.locals import *
 
 PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
-PLATFORM_COLOR = "#FF6262"
 
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('blocks/platform.png')
-        #self.image = pygame.Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-        #self.image.fill(Color(PLATFORM_COLOR))
+        self.image = pygame.image.load('img/blocks/cloud2_32x32.png')
+        self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
+
+
+class Border(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('img/blocks/heart.gif')
+        self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
+
+
+class Spikes(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('img/blocks/spikes.jpg')
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)

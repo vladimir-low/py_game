@@ -14,23 +14,23 @@ GRAVITY = 0.35
 
 ANIMATION_DELAY = 0.1
 ANIMATION_RIGHT = [
-                    'mario/r1.png',
-                    'mario/r2.png',
-                    'mario/r3.png',
-                    'mario/r4.png',
-                    'mario/r5.png'
+                    'img/mario/r1.png',
+                    'img/mario/r2.png',
+                    'img/mario/r3.png',
+                    'img/mario/r4.png',
+                    'img/mario/r5.png'
                 ]
 ANIMATION_LEFT = [
-                    'mario/l1.png',
-                    'mario/l2.png',
-                    'mario/l3.png',
-                    'mario/l4.png',
-                    'mario/l5.png'
+                    'img/mario/l1.png',
+                    'img/mario/l2.png',
+                    'img/mario/l3.png',
+                    'img/mario/l4.png',
+                    'img/mario/l5.png'
                 ]
-ANIMATION_JUMP_LEFT = [('mario/jl.png', ANIMATION_DELAY)]
-ANIMATION_JUMP_RIGHT = [('mario/jr.png', ANIMATION_DELAY)]
-ANIMATION_JUMP = [('mario/j.png', ANIMATION_DELAY)]
-ANIMATION_STAY = [('mario/0.png', ANIMATION_DELAY)]
+ANIMATION_JUMP_LEFT = [('img/mario/jl.png', ANIMATION_DELAY)]
+ANIMATION_JUMP_RIGHT = [('img/mario/jr.png', ANIMATION_DELAY)]
+ANIMATION_JUMP = [('img/mario/j.png', ANIMATION_DELAY)]
+ANIMATION_STAY = [('img/mario/0.png', ANIMATION_DELAY)]
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
