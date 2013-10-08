@@ -8,9 +8,9 @@ import pyganim
 WIDTH = 22
 HEIGHT = 32
 COLOR = '#888889'
-SPEED = 7
+SPEED = 5
 JUMP_STRENGTH = 10
-GRAVITY = 0.35
+GRAVITY = 0.45
 
 ANIMATION_DELAY = 0.1
 ANIMATION_RIGHT = [
@@ -32,6 +32,7 @@ ANIMATION_JUMP_RIGHT = [('img/mario/jr.png', ANIMATION_DELAY)]
 ANIMATION_JUMP = [('img/mario/j.png', ANIMATION_DELAY)]
 ANIMATION_STAY = [('img/mario/0.png', ANIMATION_DELAY)]
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -39,6 +40,8 @@ class Player(pygame.sprite.Sprite):
         self.xvel = 0  # Velocity. 0 - not move
         self.yvel = 0
         self.onGround = False  # Whether a hero on the ground
+        self.died = False  # Died or alive
+        self.win = False  # Win the game
         self.startX = x  # Initial position
         self.startY = y
         self.image = pygame.Surface((WIDTH, HEIGHT))
@@ -47,7 +50,6 @@ class Player(pygame.sprite.Sprite):
         self.image.set_colorkey(Color(COLOR))  # Transparent background
 
         # Animation
-        boltAnim = []
         self.boltAnimRight = pyganim.PygAnimation([(x, ANIMATION_DELAY) for x in ANIMATION_RIGHT])
         self.boltAnimRight.play()
 
@@ -106,20 +108,33 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.xvel
         self.collide(self.xvel, 0, platforms)
 
+        if self.died:
+            return 'died'
+        elif self.win:
+            return 'win'
+
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
             if pygame.sprite.collide_rect(self, p):  # If a hero overlaps with block
+                # Regular blocks
                 if xvel > 0:  # If move right
                     self.rect.right = p.rect.left  # Stop movement
-
-                if xvel < 0:
+                elif xvel < 0:
                     self.rect.left = p.rect.right
-
-                if yvel > 0:  # if move down
+                elif yvel > 0:  # if move down
                     self.rect.bottom = p.rect.top
                     self.onGround = True  # Stand on the ground
                     self.yvel = 0  # Stop gravitation
-
-                if yvel < 0:
+                elif yvel < 0:
                     self.rect.top = p.rect.bottom
                     self.yvel = 0
+
+                # Enemies
+                from blocks import BlockSpikes
+                if yvel > 0 and isinstance(p, BlockSpikes):
+                    self.died = True
+
+                # Artefacts
+                from blocks import BlockArtefact
+                if yvel > 0 and isinstance(p, BlockArtefact):
+                    self.win = True
